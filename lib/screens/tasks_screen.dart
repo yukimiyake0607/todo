@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -15,10 +16,10 @@ class TasksScreen extends StatelessWidget {
           bottom: 30.0,
           left: 30.0,
         ),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               backgroundColor: Colors.white,
               radius: 30.0,
               child: Icon(
@@ -27,10 +28,10 @@ class TasksScreen extends StatelessWidget {
                 color: Colors.lightBlueAccent,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               'Todoey',
               style: TextStyle(
                 color: Colors.white,
@@ -38,13 +39,14 @@ class TasksScreen extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            Text(
+            const Text(
               '12 Tasks',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
               ),
             ),
+            Container(),
           ],
         ),
       ),
