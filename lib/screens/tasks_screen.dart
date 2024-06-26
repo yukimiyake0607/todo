@@ -20,7 +20,13 @@ class TasksScreen extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => AddTaskScreen());
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => FractionallySizedBox(
+              heightFactor: 0.75,
+              child: AddTaskScreen(),
+            ),
+          );
         },
       ),
       body: Column(
