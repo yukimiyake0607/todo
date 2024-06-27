@@ -10,21 +10,14 @@ class TaskTile extends StatefulWidget {
 class _TaskTileState extends State<TaskTile> {
   // プロパティ
   bool isChecked = false;
-  // メソッド
-  TextDecoration? getLineThrough() {
-    if (isChecked == true) {
-      return TextDecoration.lineThrough;
-    } else {
-      return null;
-    }
-  }
 
   // override
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text('This is a task.',
-          style: TextStyle(decoration: getLineThrough())),
+          style: TextStyle(
+              decoration: isChecked ? TextDecoration.lineThrough : null)),
       trailing: Checkbox(
         value: isChecked,
         onChanged: (newValue) {
@@ -36,9 +29,3 @@ class _TaskTileState extends State<TaskTile> {
     );
   }
 }
-
-
-
-
-
-
