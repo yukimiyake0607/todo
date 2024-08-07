@@ -28,7 +28,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           ],
           indicatorColor: Colors.grey,
           controller: _tabController,
-          onTap: (value) {},
+          onTap: (value) {
+            ref.read(tabProvider.notifier).update(value);
+          },
         ),
       ),
       body: TabBarView(
