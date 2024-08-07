@@ -5,8 +5,19 @@ class TodoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('TODO'),
-    );
+    return ListView.builder(
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Checkbox(
+              value: false,
+              onChanged: (value) {
+                value = !value!;
+              },
+            ),
+            title: Text('買い物'),
+            subtitle: Text('牛乳、バター'),
+          );
+        });
   }
 }
