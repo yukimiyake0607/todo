@@ -6,7 +6,7 @@ part 'todo_provider.g.dart';
 
 @riverpod
 class Todo extends _$Todo {
-  late final Uuid _uuid;
+  final Uuid _uuid = Uuid();
   @override
   List<TodoModel> build() {
     return [];
