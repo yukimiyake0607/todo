@@ -21,6 +21,12 @@ class TodoScreen extends ConsumerWidget {
             ),
             title: Text(todo.title),
             subtitle: Text(todo.subTitle),
+            trailing: IconButton(
+              onPressed: () {
+                ref.read(todoProvider.notifier).deleteTodo(todo.id);
+              },
+              icon: const Icon(Icons.delete),
+            ),
           );
         });
   }

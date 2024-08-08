@@ -20,11 +20,12 @@ class Todo extends _$Todo {
 
   void toggleTodoChecked(String id) {
     state = [
-      for(final todo in state) 
-        if(id == todo.id) 
-          todo.copyWith(isChecked: !todo.isChecked)
-        else
-          todo
+      for (final todo in state)
+        if (id == todo.id) todo.copyWith(isChecked: !todo.isChecked) else todo
     ];
+  }
+
+  void deleteTodo(String id) {
+    state = state.where((todo) => todo.id != id).toList();
   }
 }
