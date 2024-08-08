@@ -106,7 +106,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             },
           );
         },
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
