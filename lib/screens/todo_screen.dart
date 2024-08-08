@@ -16,7 +16,7 @@ class TodoScreen extends ConsumerWidget {
             leading: Checkbox(
               value: todo.isChecked,
               onChanged: (value) {
-                value = !value!;
+                ref.read(todoProvider.notifier).toggleTodoChecked(todo.id);
               },
             ),
             title: Text(todo.title),

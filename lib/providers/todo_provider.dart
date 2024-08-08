@@ -17,4 +17,14 @@ class Todo extends _$Todo {
         TodoModel(id: _uuid.v4(), title: todoTitle, subTitle: todoSubtitle);
     state = [...state, newTodo];
   }
+
+  void toggleTodoChecked(String id) {
+    state = [
+      for(final todo in state) 
+        if(id == todo.id) 
+          todo.copyWith(isChecked: !todo.isChecked)
+        else
+          todo
+    ];
+  }
 }
