@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo/providers/todo_provider.dart';
 
-class TodoScreen extends StatelessWidget {
+class TodoScreen extends ConsumerWidget {
   const TodoScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todoList = ref.watch(todoProvider);
     return ListView.builder(
-        itemCount: 3,
+        itemCount: todoList.length,
         itemBuilder: (context, index) {
+          final todo = todoList[index];
           return ListTile(
             leading: Checkbox(
-              value: false,
+              value: todo.isChecked,
               onChanged: (value) {
                 value = !value!;
               },
             ),
-            title: Text('買い物'),
-            subtitle: Text('牛乳、バター'),
+            title: Text(todo.title),
+            subtitle: Text(todo.subTitle),
           );
         });
   }
