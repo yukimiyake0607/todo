@@ -12,20 +12,39 @@ class TodoScreen extends ConsumerWidget {
         itemCount: todoList.length,
         itemBuilder: (context, index) {
           final todo = todoList[index];
-          return ListTile(
-            leading: Checkbox(
-              value: todo.isChecked,
-              onChanged: (value) {
-                ref.read(todoProvider.notifier).toggleTodoChecked(todo.id);
-              },
+          return Dismissible(
+            key: Key(todo.id),
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.all(20),
+              child: const Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
             ),
-            title: Text(todo.title),
-            subtitle: Text(todo.subTitle),
-            trailing: IconButton(
-              onPressed: () {
-                ref.read(todoProvider.notifier).deleteTodo(todo.id);
-              },
-              icon: const Icon(Icons.delete),
+            onDismissed: (direction) {
+              ref.read(todoProvider.notifier).deleteTodo(todo.id);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('${todo.title} を削除しました'),
+                action: SnackBarAction(
+                    label: '元に戻す',
+                    onPressed: () {
+                      ref
+                          .read(todoProvider.notifier)
+                          .addTodo(todo.title, todo.subTitle);
+                    }),
+              ));
+            },
+            child: ListTile(
+              leading: Checkbox(
+                value: todo.isChecked,
+                onChanged: (value) {
+                  ref.read(todoProvider.notifier).toggleTodoChecked(todo.id);
+                },
+              ),
+              title: Text(todo.title),
+              subtitle: Text(todo.subTitle),
             ),
           );
         });
