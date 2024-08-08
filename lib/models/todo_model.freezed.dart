@@ -16,9 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoModel {
+  @HiveField(0)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get title => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get subTitle => throw _privateConstructorUsedError;
+  @HiveField(3)
   bool get isChecked => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +35,11 @@ abstract class $TodoModelCopyWith<$Res> {
   factory $TodoModelCopyWith(TodoModel value, $Res Function(TodoModel) then) =
       _$TodoModelCopyWithImpl<$Res, TodoModel>;
   @useResult
-  $Res call({String id, String title, String subTitle, bool isChecked});
+  $Res call(
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String subTitle,
+      @HiveField(3) bool isChecked});
 }
 
 /// @nodoc
@@ -81,7 +89,11 @@ abstract class _$$TodoModelImplCopyWith<$Res>
       __$$TodoModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, String subTitle, bool isChecked});
+  $Res call(
+      {@HiveField(0) String id,
+      @HiveField(1) String title,
+      @HiveField(2) String subTitle,
+      @HiveField(3) bool isChecked});
 }
 
 /// @nodoc
@@ -123,21 +135,26 @@ class __$$TodoModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 0)
 class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
   const _$TodoModelImpl(
-      {required this.id,
-      required this.title,
-      required this.subTitle,
-      this.isChecked = false});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.title,
+      @HiveField(2) required this.subTitle,
+      @HiveField(3) this.isChecked = false});
 
   @override
+  @HiveField(0)
   final String id;
   @override
+  @HiveField(1)
   final String title;
   @override
+  @HiveField(2)
   final String subTitle;
   @override
   @JsonKey()
+  @HiveField(3)
   final bool isChecked;
 
   @override
@@ -181,18 +198,22 @@ class _$TodoModelImpl with DiagnosticableTreeMixin implements _TodoModel {
 
 abstract class _TodoModel implements TodoModel {
   const factory _TodoModel(
-      {required final String id,
-      required final String title,
-      required final String subTitle,
-      final bool isChecked}) = _$TodoModelImpl;
+      {@HiveField(0) required final String id,
+      @HiveField(1) required final String title,
+      @HiveField(2) required final String subTitle,
+      @HiveField(3) final bool isChecked}) = _$TodoModelImpl;
 
   @override
+  @HiveField(0)
   String get id;
   @override
+  @HiveField(1)
   String get title;
   @override
+  @HiveField(2)
   String get subTitle;
   @override
+  @HiveField(3)
   bool get isChecked;
   @override
   @JsonKey(ignore: true)
