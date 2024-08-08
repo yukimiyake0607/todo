@@ -87,6 +87,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                         ref.read(todoProvider.notifier).addTodo(
                             _titleTextController.text,
                             _subtitleTextController.text);
+                        if (_titleTextController.text.isNotEmpty) {
+                          _titleTextController.clear();
+                          _subtitleTextController.clear();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
