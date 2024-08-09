@@ -1,31 +1,46 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/models/todo_model.dart';
+import 'package:todo/services/hive_service.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo_provider.g.dart';
 
 @riverpod
+HiveService hiveService(HiveServiceRef ref) {
+  return HiveService();
+}
+
+@riverpod
 class Todo extends _$Todo {
   final Uuid _uuid = const Uuid();
   @override
-  List<TodoModel> build() {
-    return [];
+  FutureOr<List<TodoModel>> build() async {
+    final service = ref.read(hiveServiceProvider);
+    await service.init();
+    return service.getAllTodo();
   }
 
-  void addTodo(String todoTitle, String todoSubtitle) {
-    final newTodo =
+  Future<void> addTodo(String todoTitle, String todoSubtitle) async {
+    final TodoModel newTodo =
         TodoModel(id: _uuid.v4(), title: todoTitle, subTitle: todoSubtitle);
-    state = [...state, newTodo];
+    final service = ref.read(hiveServiceProvider);
+    await service.addTodoBox(newTodo);
+    state = AsyncValue.data([...?state.value, newTodo]);
   }
 
-  void toggleTodoChecked(String id) {
-    state = [
-      for (final todo in state)
+  Future<void> toggleTodoChecked(String id) async {
+    final service = ref.read(hiveServiceProvider);
+    await service.toggleTodoBox(id);
+    state = AsyncValue.data([
+      for (final todo in state.value ?? [])
         if (id == todo.id) todo.copyWith(isChecked: !todo.isChecked) else todo
-    ];
+    ]);
   }
 
-  void deleteTodo(String id) {
-    state = state.where((todo) => todo.id != id).toList();
+  Future<void> deleteTodo(String id) async {
+    final service = ref.read(hiveServiceProvider);
+    await service.deleteTodoBox(id);
+    final newState = state.value?.where((todo) => todo.id != id).toList() ?? [];
+    state = AsyncValue.data(newState);
   }
 }
