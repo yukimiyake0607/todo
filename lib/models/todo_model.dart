@@ -15,3 +15,9 @@ class TodoModel with _$TodoModel {
     @HiveField(3) @Default(false) bool isChecked,
   }) = _TodoModel;
 }
+
+extension TodoModelX on TodoModel {
+  TodoModel toggleChecked() {
+    return copyWith(isChecked: !isChecked);
+  }
+}
