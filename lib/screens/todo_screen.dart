@@ -54,7 +54,7 @@ class TodoScreen extends ConsumerWidget {
         'エラーが発生しました:$error',
         style: Theme.of(context).textTheme.displaySmall,
       )),
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 }
