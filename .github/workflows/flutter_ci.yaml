@@ -3,6 +3,10 @@ name: flutter_ci
 on:
   pull_request:
 
+permissions:
+  checks: write    # テストレポーターのために必要
+  contents: read   # checkoutのために必要
+
 jobs:
   check:
     runs-on: ubuntu-22.04
@@ -41,3 +45,4 @@ jobs:
           path: 'test_report.log'
           reporter: 'flutter-json'
           fail-on-error: 'true'
+          token: ${{ secrets.GITHUB_TOKEN }}    # トークンを明示的に指定
