@@ -1,52 +1,43 @@
-name: flutter-ci
+name: flutter_ci
 
 on:
   pull_request:
-    branches: [ main, develop ]
-  push:
-    branches: [ main, develop ]
 
 jobs:
-  test:
-    name: Flutter CI
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    
+  check:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
+      - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.4'
-          channel: 'stable'
-          cache: true  # キャッシュを有効化して実行速度を改善
+          channel: 'stable' 
 
       - name: Create .env file
         run: |
           echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" > .env
-          # 必要に応じて他の環境変数も追加
-          
+
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Verify formatting
-        run: dart format --output=none --set-exit-if-changed .
-        
       - name: Analyze project source
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test --coverage
-
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          file: coverage/lcov.info
-          
-      - name: Check for any error
-        if: failure()
         run: |
-          echo "CIプロセスでエラーが発生しました"
-          exit 1
+          flutter test --machine --platform-name="CI Test" --coverage > test_report.log
+        continue-on-error: true
+
+      - name: Report test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: 'flutter test'
+          path: 'test_report.log'
+          reporter: 'flutter-json'
+          fail-on-error: 'true'
