@@ -1,28 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class CounterScreen extends StatefulWidget {
+class CounterScreen extends HookWidget {
   const CounterScreen({super.key});
 
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
-}
-
-class _CounterScreenState extends State<CounterScreen> {
-  int count = 0;
-  @override
   Widget build(BuildContext context) {
+    final count = useState(0);
     return Scaffold(
       body: Center(
         child: Text(
-          '$count',
+          '${count.value}',
           style: const TextStyle(fontSize: 50),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            count++;
-          });
+          count.value = count.value + 1;
         },
         child: const Icon(Icons.add),
       ),
