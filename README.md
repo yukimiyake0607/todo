@@ -1,3 +1,12 @@
-# todo
+# TODO App
 
-A new Flutter project.
+## 概要
+
+- このアプリはCRUD機能がついたTODOアプリです
+
+## 目的
+
+- DDDの知識定着
+- 自分なりのアーキテクチャを考える
+
+
