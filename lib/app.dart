@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo/presentation/pages/counter_screen.dart';
+import 'package:todo/presentation/pages/home_page.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -7,7 +7,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: CounterScreen(),
+      home: HomePage(),
     );
   }
 }
