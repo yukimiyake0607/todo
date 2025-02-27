@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo/presentation/bottom_navigation/bottom_navigation_provider.dart';
+import 'package:todo/presentation/core/bottom_navigation/bottom_navigation_provider.dart';
 
 class BottomNavigation extends ConsumerWidget {
   const BottomNavigation({super.key});
