@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/presentation/bottom_navigation/bottom_navigation_provider.dart';
 import 'package:todo/presentation/bottom_navigation/bottom_navigation.dart';
 import 'package:todo/presentation/pages/completed_page.dart';
+import 'package:todo/presentation/pages/profile_page.dart';
 import 'package:todo/presentation/pages/todo_page.dart';
 
 class HomePage extends ConsumerWidget {
@@ -18,6 +19,7 @@ class HomePage extends ConsumerWidget {
         children: const [
           TodoPage(),
           CompletedPage(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: const BottomNavigation(),
