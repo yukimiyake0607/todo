@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/presentation/core/theme/todo_card_color.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
@@ -14,8 +15,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFFF97316),
-            Color(0xFFEA580C),
+            todoMainColor,
+            todoSubColor,
           ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,

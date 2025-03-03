@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/home_page.dart';
 
 class MainApp extends StatelessWidget {
@@ -9,10 +10,10 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       home: const HomePage(),
       theme: ThemeData(
-        primaryColor: const Color(0xFFF97316),
+        primaryColor: todoMainColor,
         colorScheme: const ColorScheme.light(
-          primary: Color(0xFFF97316),
-          secondary: Color(0xFFEA580C),
+          primary: todoMainColor,
+          secondary: todoSubColor,
           surface: Colors.white,
         ),
       ),
