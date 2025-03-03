@@ -4,7 +4,7 @@ import 'package:todo/presentation/core/bottom_navigation/bottom_navigation_provi
 import 'package:todo/presentation/core/bottom_navigation/bottom_navigation.dart';
 import 'package:todo/presentation/pages/completed_page.dart';
 import 'package:todo/presentation/pages/profile_page.dart';
-import 'package:todo/presentation/pages/todo_page.dart';
+import 'package:todo/presentation/pages/todo/todo_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
