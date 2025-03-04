@@ -104,13 +104,18 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                                   DateTime.now(),
                                   false,
                                 );
+                          } else {
+                            // 編集の場合
+                            ref.read(todoListProvider.notifier).updateTodo(
+                                  _controllerTodoTitle.text,
+                                  DateTime.now(),
+                                  false,
+                                  widget.todoModel!
+                                      .id, // ここでのNull checkは安全（elseブロック内なので）
+                                );
                           }
-                          ref.read(todoListProvider.notifier).updateTodo(
-                                _controllerTodoTitle.text,
-                                DateTime.now(),
-                                false,
-                                widget.todoModel!.id,
-                              );
+                          // ダイアログを閉じる
+                          Navigator.of(context).pop();
                         },
                         child: Text(widget.buttonTitle),
                       ),
