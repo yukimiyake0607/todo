@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
 import 'package:todo/presentation/providers/todo_list_provider.dart';
@@ -7,14 +8,10 @@ import 'package:todo/presentation/providers/todo_list_provider.dart';
 class TodoCard extends ConsumerWidget {
   const TodoCard({
     super.key,
-    required this.todoTitle,
-    this.dueDate,
-    required this.id,
+    required this.todoModel,
   });
 
-  final String todoTitle;
-  final DateTime? dueDate;
-  final String id;
+  final TodoModel todoModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,25 +53,29 @@ class TodoCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(todoTitle),
-              Text('$dueDate'),
+              Text(todoModel.todoTitle),
+              Text('${todoModel.dueDate}'),
             ],
           ),
           const Spacer(),
           IconButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const TodoDialog(buttonTitle: '編集');
-                  });
+                context: context,
+                builder: (context) {
+                  return TodoDialog(
+                    buttonTitle: '編集',
+                    todoModel: todoModel,
+                  );
+                },
+              );
             },
             icon: const Icon(Icons.edit_note_outlined),
             visualDensity: VisualDensity.compact,
           ),
           IconButton(
             onPressed: () {
-              ref.read(todoListProvider.notifier).deleteTodo(id);
+              ref.read(todoListProvider.notifier).deleteTodo(todoModel.id);
             },
             icon: const Icon(Icons.delete_outlined),
             visualDensity: VisualDensity.compact,

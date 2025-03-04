@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/providers/todo_list_provider.dart';
 
 class TodoDialog extends ConsumerStatefulWidget {
-  const TodoDialog({super.key, required this.buttonTitle});
+  const TodoDialog({super.key, required this.buttonTitle, this.todoModel});
 
   final String buttonTitle;
+  final TodoModel? todoModel;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TodoDialogState();
@@ -19,7 +21,9 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
   @override
   void initState() {
     super.initState();
-    _controllerTodoTitle = TextEditingController();
+    _controllerTodoTitle = TextEditingController(
+      text: widget.todoModel?.todoTitle ?? '',
+    );
     _controllerDueDate = TextEditingController();
   }
 
@@ -53,13 +57,13 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(16),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '新しいタスク',
-                      style: TextStyle(
+                      widget.todoModel == null ? '新しいTODO' : 'TODOを編集',
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -93,11 +97,19 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                     Center(
                       child: TextButton(
                         onPressed: () {
-                          ref.read(todoListProvider.notifier).createTodo(
+                          if (widget.todoModel == null) {
+                            ref.read(todoListProvider.notifier).createTodo(
+                                  _controllerTodoTitle.text,
+                                  DateTime.now(),
+                                  DateTime.now(),
+                                  false,
+                                );
+                          }
+                          ref.read(todoListProvider.notifier).updateTodo(
                                 _controllerTodoTitle.text,
                                 DateTime.now(),
-                                DateTime.now(),
                                 false,
+                                widget.todoModel!.id,
                               );
                         },
                         child: Text(widget.buttonTitle),

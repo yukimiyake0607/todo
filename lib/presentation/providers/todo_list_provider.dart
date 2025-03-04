@@ -38,4 +38,24 @@ class TodoList extends _$TodoList {
 
     state = AsyncValue.data(updateTodos);
   }
+
+  Future<void> updateTodo(
+    String todoTitle,
+    DateTime? dueDate,
+    bool important,
+    String todoId,
+  ) async {
+    final currentTodos = state.value ?? [];
+    final findTodo = currentTodos.firstWhere((todo) => todo.id == todoId);
+    final editTodo = findTodo.copyWith(
+      todoTitle: todoTitle,
+      dueDate: dueDate,
+      important: important,
+    );
+
+    final updateTodos =
+        currentTodos.where((todo) => todo.id != editTodo.id).toList();
+
+    state = AsyncValue.data([...updateTodos, editTodo]);
+  }
 }

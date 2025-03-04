@@ -28,11 +28,7 @@ class _TodoPageState extends ConsumerState<TodoPage> {
             itemCount: todoListData.length,
             itemBuilder: (context, index) {
               final todoList = todoListData[index];
-              return TodoCard(
-                todoTitle: todoList.todoTitle,
-                dueDate: todoList.dueDate,
-                id: todoList.id,
-              );
+              return TodoCard(todoModel: todoList);
             },
           );
         },
