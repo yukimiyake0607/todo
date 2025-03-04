@@ -5,9 +5,9 @@ part 'todo_model.freezed.dart';
 @freezed
 class TodoModel with _$TodoModel {
   const factory TodoModel({
-    required int id,
+    required String id,
     required String todoTitle,
-    required DateTime dueDate,
+    required DateTime? dueDate,
     required DateTime createdDate,
     required bool important,
   }) = _TodoModel;

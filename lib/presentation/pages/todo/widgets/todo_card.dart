@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
+import 'package:todo/presentation/providers/todo_list_provider.dart';
 
-class TodoCard extends StatelessWidget {
+class TodoCard extends ConsumerWidget {
   const TodoCard({
     super.key,
     required this.todoTitle,
     this.dueDate,
+    required this.id,
   });
 
   final String todoTitle;
   final DateTime? dueDate;
+  final String id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       height: 80,
       margin: const EdgeInsets.only(bottom: 20),
@@ -69,7 +73,9 @@ class TodoCard extends StatelessWidget {
             visualDensity: VisualDensity.compact,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.read(todoListProvider.notifier).deleteTodo(id);
+            },
             icon: const Icon(Icons.delete_outlined),
             visualDensity: VisualDensity.compact,
           ),

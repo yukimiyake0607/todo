@@ -31,6 +31,7 @@ class _TodoPageState extends ConsumerState<TodoPage> {
               return TodoCard(
                 todoTitle: todoList.todoTitle,
                 dueDate: todoList.dueDate,
+                id: todoList.id,
               );
             },
           );

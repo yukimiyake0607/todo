@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoModel {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get todoTitle => throw _privateConstructorUsedError;
-  DateTime get dueDate => throw _privateConstructorUsedError;
+  DateTime? get dueDate => throw _privateConstructorUsedError;
   DateTime get createdDate => throw _privateConstructorUsedError;
   bool get important => throw _privateConstructorUsedError;
 
@@ -33,9 +33,9 @@ abstract class $TodoModelCopyWith<$Res> {
       _$TodoModelCopyWithImpl<$Res, TodoModel>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String todoTitle,
-      DateTime dueDate,
+      DateTime? dueDate,
       DateTime createdDate,
       bool important});
 }
@@ -55,7 +55,7 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
   $Res call({
     Object? id = null,
     Object? todoTitle = null,
-    Object? dueDate = null,
+    Object? dueDate = freezed,
     Object? createdDate = null,
     Object? important = null,
   }) {
@@ -63,15 +63,15 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       todoTitle: null == todoTitle
           ? _value.todoTitle
           : todoTitle // ignore: cast_nullable_to_non_nullable
               as String,
-      dueDate: null == dueDate
+      dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdDate: null == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -93,9 +93,9 @@ abstract class _$$TodoModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String todoTitle,
-      DateTime dueDate,
+      DateTime? dueDate,
       DateTime createdDate,
       bool important});
 }
@@ -113,7 +113,7 @@ class __$$TodoModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? todoTitle = null,
-    Object? dueDate = null,
+    Object? dueDate = freezed,
     Object? createdDate = null,
     Object? important = null,
   }) {
@@ -121,15 +121,15 @@ class __$$TodoModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       todoTitle: null == todoTitle
           ? _value.todoTitle
           : todoTitle // ignore: cast_nullable_to_non_nullable
               as String,
-      dueDate: null == dueDate
+      dueDate: freezed == dueDate
           ? _value.dueDate
           : dueDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
       createdDate: null == createdDate
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
@@ -153,11 +153,11 @@ class _$TodoModelImpl implements _TodoModel {
       required this.important});
 
   @override
-  final int id;
+  final String id;
   @override
   final String todoTitle;
   @override
-  final DateTime dueDate;
+  final DateTime? dueDate;
   @override
   final DateTime createdDate;
   @override
@@ -196,18 +196,18 @@ class _$TodoModelImpl implements _TodoModel {
 
 abstract class _TodoModel implements TodoModel {
   const factory _TodoModel(
-      {required final int id,
+      {required final String id,
       required final String todoTitle,
-      required final DateTime dueDate,
+      required final DateTime? dueDate,
       required final DateTime createdDate,
       required final bool important}) = _$TodoModelImpl;
 
   @override
-  int get id;
+  String get id;
   @override
   String get todoTitle;
   @override
-  DateTime get dueDate;
+  DateTime? get dueDate;
   @override
   DateTime get createdDate;
   @override
