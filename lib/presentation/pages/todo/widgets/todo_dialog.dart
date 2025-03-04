@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo/presentation/core/theme/todo_card_color.dart';
+import 'package:todo/presentation/providers/todo_list_provider.dart';
+
+class TodoDialog extends ConsumerStatefulWidget {
+  const TodoDialog({super.key, required this.buttonTitle});
+
+  final String buttonTitle;
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _TodoDialogState();
+}
+
+class _TodoDialogState extends ConsumerState<TodoDialog> {
+  late TextEditingController _controllerTodoTitle;
+  late TextEditingController _controllerDueDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _controllerTodoTitle = TextEditingController();
+    _controllerDueDate = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controllerTodoTitle.dispose();
+    _controllerDueDate.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Material(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        color: Colors.white,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 70,
+                decoration: const BoxDecoration(
+                  color: todoMainColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '新しいタスク',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('タスク名'),
+                    TextField(
+                      controller: _controllerTodoTitle,
+                    ),
+                    const Text('期限'),
+                    TextField(
+                      controller: _controllerDueDate,
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: false,
+                          onChanged: (newValue) {},
+                        ),
+                        const Text('重要なタスク'),
+                      ],
+                    ),
+                    Center(
+                      child: TextButton(
+                        onPressed: () {
+                          ref.read(todoListProvider.notifier).createTodo(
+                                _controllerTodoTitle.text,
+                                DateTime.now(),
+                                DateTime.now(),
+                                false,
+                              );
+                        },
+                        child: Text(widget.buttonTitle),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

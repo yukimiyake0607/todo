@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
+import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
 
 class TodoCard extends StatelessWidget {
   const TodoCard({
     super.key,
     required this.todoTitle,
-    required this.dueDate,
+    this.dueDate,
   });
 
   final String todoTitle;
-  final DateTime dueDate;
+  final DateTime? dueDate;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,13 @@ class TodoCard extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const TodoDialog(buttonTitle: '編集');
+                  });
+            },
             icon: const Icon(Icons.edit_note_outlined),
             visualDensity: VisualDensity.compact,
           ),
