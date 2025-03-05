@@ -26,6 +26,7 @@ class TodoList extends _$TodoList {
       dueDate: dueDate,
       createdDate: createdDate,
       important: important,
+      isCompleted: false,
     );
 
     final currentTodos = state.valueOrNull ?? [];

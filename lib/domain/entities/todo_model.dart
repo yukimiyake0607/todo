@@ -9,6 +9,7 @@ class TodoModel with _$TodoModel {
     required String todoTitle,
     required DateTime? dueDate,
     required DateTime createdDate,
-    required bool important,
+    required bool? important,
+    required bool isCompleted,
   }) = _TodoModel;
 }
