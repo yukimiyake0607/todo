@@ -34,4 +34,11 @@ class CompletedList extends _$CompletedList {
       ),
     ];
   }
+
+  Future<void> deleteCompletedTodo(String id) async {
+    final currentTodos = state.value ?? [];
+    final updatedTodos =
+        currentTodos.where((completedTodo) => completedTodo.id != id).toList();
+    state = AsyncValue.data(updatedTodos);
+  }
 }

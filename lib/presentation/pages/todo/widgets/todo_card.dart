@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
+import 'package:todo/presentation/providers/completed/completed_list_provider.dart';
 import 'package:todo/presentation/providers/todo/todo_list_provider.dart';
 
 class TodoCard extends ConsumerStatefulWidget {
@@ -84,7 +85,11 @@ class _TodoCardState extends ConsumerState<TodoCard> {
               Text('${widget.todoModel.dueDate}'),
             ],
           ),
+
+          // Todoタイトルとボタン間に余白
           const Spacer(),
+
+          // 編集機能はTodoPageのみ
           if (_isChecked == false)
             IconButton(
               onPressed: () {
@@ -101,11 +106,19 @@ class _TodoCardState extends ConsumerState<TodoCard> {
               icon: const Icon(Icons.edit_note_outlined),
               visualDensity: VisualDensity.compact,
             ),
+
+          // 削除ボタン：両方
           IconButton(
             onPressed: () {
-              ref
-                  .read(todoListProvider.notifier)
-                  .deleteTodo(widget.todoModel.id);
+              if (_isChecked == false) {
+                ref
+                    .read(todoListProvider.notifier)
+                    .deleteTodo(widget.todoModel.id);
+              } else {
+                ref
+                    .read(completedListProvider.notifier)
+                    .deleteCompletedTodo(widget.todoModel.id);
+              }
             },
             icon: const Icon(Icons.delete_outlined),
             visualDensity: VisualDensity.compact,
