@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
-import 'package:todo/presentation/providers/todo_list_provider.dart';
+import 'package:todo/presentation/providers/todo/todo_list_provider.dart';
 
 class TodoCard extends ConsumerWidget {
   const TodoCard({
