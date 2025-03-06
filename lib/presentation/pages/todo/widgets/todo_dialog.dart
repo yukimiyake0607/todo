@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/providers/todo/todo_list_provider.dart';
@@ -16,6 +17,9 @@ class TodoDialog extends ConsumerStatefulWidget {
 
 class _TodoDialogState extends ConsumerState<TodoDialog> {
   late TextEditingController _controllerTodoTitle;
+  late TextEditingController _controllerDate;
+  late DateTime _dueDate;
+  bool? _isCheck = false;
 
   @override
   void initState() {
@@ -23,12 +27,34 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
     _controllerTodoTitle = TextEditingController(
       text: widget.todoModel?.todoTitle ?? '',
     );
+    _dueDate = widget.todoModel?.dueDate ?? DateTime.now();
+    _controllerDate = TextEditingController(
+      text: DateFormat('yyyy年MM月dd日').format(_dueDate),
+    );
   }
 
   @override
   void dispose() {
     _controllerTodoTitle.dispose();
+    _controllerDate.dispose();
     super.dispose();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      locale: const Locale('ja'),
+      context: context,
+      initialDate: _dueDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2099),
+    );
+
+    if (picked != null && picked != _dueDate) {
+      setState(() {
+        _dueDate = picked;
+        _controllerDate.text = DateFormat('yyyy年MM月dd日').format(_dueDate);
+      });
+    }
   }
 
   @override
@@ -78,12 +104,29 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                     TextField(
                       controller: _controllerTodoTitle,
                     ),
-                    const Text('期限'),
+                    const SizedBox(height: 10),
+                    InkWell(
+                      onTap: () => _selectDate(context),
+                      child: InputDecorator(
+                        decoration: InputDecoration(
+                          suffixIcon: const Icon(Icons.calendar_today),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        child: Text(_controllerDate.text),
+                      ),
+                    ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Checkbox(
-                          value: false,
-                          onChanged: (newValue) {},
+                          value: _isCheck,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _isCheck = newValue;
+                            });
+                          },
                         ),
                         const Text('重要なタスク'),
                       ],
@@ -94,9 +137,9 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                           if (widget.todoModel == null) {
                             ref.read(todoListProvider.notifier).createTodo(
                                   _controllerTodoTitle.text,
+                                  _dueDate,
                                   DateTime.now(),
-                                  DateTime.now(),
-                                  false,
+                                  _isCheck ?? false,
                                 );
                           } else {
                             // 編集の場合
