@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/presentation/core/theme/todo_card_color.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
@@ -90,7 +91,10 @@ class _TodoCardState extends ConsumerState<TodoCard> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(widget.todoModel.todoTitle),
-              Text('${widget.todoModel.dueDate}'),
+              widget.todoModel.dueDate != null
+                  ? Text(DateFormat('yyyy年MM月dd日')
+                      .format(widget.todoModel.dueDate!))
+                  : const SizedBox.shrink(),
             ],
           ),
 
