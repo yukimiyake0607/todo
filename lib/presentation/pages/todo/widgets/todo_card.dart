@@ -66,15 +66,23 @@ class _TodoCardState extends ConsumerState<TodoCard> {
           ),
           Checkbox(
             value: _isChecked,
-            onChanged: (newValue) {
+            onChanged: (newValue) async {
               // 一時的に状態を更新せず、0.5秒後に更新する
-              Future.delayed(const Duration(milliseconds: 200), () {
+              await Future.delayed(const Duration(milliseconds: 200), () {
                 if (mounted) {
                   setState(() {
+                    // nullが返ってくることを考慮してデフォでfalseを指定
                     _isChecked = newValue ?? false;
                   });
                 }
               });
+
+              // 反対のリストに移動する処理
+              if (newValue == true) {
+                // todoが完了したと判断
+              } else {
+                // todoをTodoListに戻す
+              }
             },
           ),
           Column(
