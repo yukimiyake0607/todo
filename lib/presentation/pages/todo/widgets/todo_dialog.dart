@@ -16,7 +16,6 @@ class TodoDialog extends ConsumerStatefulWidget {
 
 class _TodoDialogState extends ConsumerState<TodoDialog> {
   late TextEditingController _controllerTodoTitle;
-  late TextEditingController _controllerDueDate;
 
   @override
   void initState() {
@@ -24,13 +23,11 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
     _controllerTodoTitle = TextEditingController(
       text: widget.todoModel?.todoTitle ?? '',
     );
-    _controllerDueDate = TextEditingController();
   }
 
   @override
   void dispose() {
     _controllerTodoTitle.dispose();
-    _controllerDueDate.dispose();
     super.dispose();
   }
 
@@ -82,9 +79,6 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                       controller: _controllerTodoTitle,
                     ),
                     const Text('期限'),
-                    TextField(
-                      controller: _controllerDueDate,
-                    ),
                     Row(
                       children: [
                         Checkbox(
