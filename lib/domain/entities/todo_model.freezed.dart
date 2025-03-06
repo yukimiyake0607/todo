@@ -20,7 +20,8 @@ mixin _$TodoModel {
   String get todoTitle => throw _privateConstructorUsedError;
   DateTime? get dueDate => throw _privateConstructorUsedError;
   DateTime get createdDate => throw _privateConstructorUsedError;
-  bool get important => throw _privateConstructorUsedError;
+  bool? get important => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TodoModelCopyWith<TodoModel> get copyWith =>
@@ -37,7 +38,8 @@ abstract class $TodoModelCopyWith<$Res> {
       String todoTitle,
       DateTime? dueDate,
       DateTime createdDate,
-      bool important});
+      bool? important,
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -57,7 +59,8 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
     Object? todoTitle = null,
     Object? dueDate = freezed,
     Object? createdDate = null,
-    Object? important = null,
+    Object? important = freezed,
+    Object? isCompleted = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -76,9 +79,13 @@ class _$TodoModelCopyWithImpl<$Res, $Val extends TodoModel>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      important: null == important
+      important: freezed == important
           ? _value.important
           : important // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -97,7 +104,8 @@ abstract class _$$TodoModelImplCopyWith<$Res>
       String todoTitle,
       DateTime? dueDate,
       DateTime createdDate,
-      bool important});
+      bool? important,
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -115,7 +123,8 @@ class __$$TodoModelImplCopyWithImpl<$Res>
     Object? todoTitle = null,
     Object? dueDate = freezed,
     Object? createdDate = null,
-    Object? important = null,
+    Object? important = freezed,
+    Object? isCompleted = null,
   }) {
     return _then(_$TodoModelImpl(
       id: null == id
@@ -134,9 +143,13 @@ class __$$TodoModelImplCopyWithImpl<$Res>
           ? _value.createdDate
           : createdDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      important: null == important
+      important: freezed == important
           ? _value.important
           : important // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -150,7 +163,8 @@ class _$TodoModelImpl implements _TodoModel {
       required this.todoTitle,
       required this.dueDate,
       required this.createdDate,
-      required this.important});
+      required this.important,
+      required this.isCompleted});
 
   @override
   final String id;
@@ -161,11 +175,13 @@ class _$TodoModelImpl implements _TodoModel {
   @override
   final DateTime createdDate;
   @override
-  final bool important;
+  final bool? important;
+  @override
+  final bool isCompleted;
 
   @override
   String toString() {
-    return 'TodoModel(id: $id, todoTitle: $todoTitle, dueDate: $dueDate, createdDate: $createdDate, important: $important)';
+    return 'TodoModel(id: $id, todoTitle: $todoTitle, dueDate: $dueDate, createdDate: $createdDate, important: $important, isCompleted: $isCompleted)';
   }
 
   @override
@@ -180,12 +196,14 @@ class _$TodoModelImpl implements _TodoModel {
             (identical(other.createdDate, createdDate) ||
                 other.createdDate == createdDate) &&
             (identical(other.important, important) ||
-                other.important == important));
+                other.important == important) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, todoTitle, dueDate, createdDate, important);
+  int get hashCode => Object.hash(
+      runtimeType, id, todoTitle, dueDate, createdDate, important, isCompleted);
 
   @JsonKey(ignore: true)
   @override
@@ -200,7 +218,8 @@ abstract class _TodoModel implements TodoModel {
       required final String todoTitle,
       required final DateTime? dueDate,
       required final DateTime createdDate,
-      required final bool important}) = _$TodoModelImpl;
+      required final bool? important,
+      required final bool isCompleted}) = _$TodoModelImpl;
 
   @override
   String get id;
@@ -211,7 +230,9 @@ abstract class _TodoModel implements TodoModel {
   @override
   DateTime get createdDate;
   @override
-  bool get important;
+  bool? get important;
+  @override
+  bool get isCompleted;
   @override
   @JsonKey(ignore: true)
   _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>

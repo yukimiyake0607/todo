@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/presentation/core/appbar/custom_appbar.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_card.dart';
 import 'package:todo/presentation/pages/todo/widgets/todo_dialog.dart';
-import 'package:todo/presentation/providers/todo_list_provider.dart';
+import 'package:todo/presentation/providers/todo/todo_list_provider.dart';
 
 class TodoPage extends ConsumerStatefulWidget {
   const TodoPage({super.key});
