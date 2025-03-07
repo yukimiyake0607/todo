@@ -8,32 +8,7 @@ part 'todo_list_provider.g.dart';
 class TodoList extends _$TodoList {
   @override
   FutureOr<List<TodoModel>> build() {
-    return [
-      TodoModel(
-        id: '1',
-        todoTitle: '仮',
-        dueDate: DateTime.now(),
-        createdDate: DateTime.now(),
-        important: false,
-        isCompleted: false,
-      ),
-      TodoModel(
-        id: '2',
-        todoTitle: '仮',
-        dueDate: DateTime.now(),
-        createdDate: DateTime.now(),
-        important: false,
-        isCompleted: false,
-      ),
-      TodoModel(
-        id: '3',
-        todoTitle: '仮',
-        dueDate: DateTime.now(),
-        createdDate: DateTime.now(),
-        important: false,
-        isCompleted: false,
-      ),
-    ];
+    return [];
   }
 
   Future<void> createTodo(

@@ -68,19 +68,29 @@ class _TodoCardState extends ConsumerState<TodoCard> {
           Checkbox(
             value: _isChecked,
             onChanged: (newValue) async {
-              // 一時的に状態を更新せず、0.5秒後に更新する
-              await Future.delayed(const Duration(milliseconds: 200), () {
-                if (mounted) {
-                  setState(() {
-                    // nullが返ってくることを考慮してデフォでfalseを指定
-                    _isChecked = newValue ?? false;
-                  });
-                }
+              setState(() {
+                // nullが返ってくることを考慮してデフォでfalseを指定
+                _isChecked = newValue ?? false;
               });
 
+              // 一時的に状態を更新せず、0.5秒後に更新する
+              await Future.delayed(const Duration(milliseconds: 500));
+
+              if (!mounted) return;
+
               // 反対のリストに移動する処理
-              if (newValue == true) {
-                // todoが完了したと判断
+              if (_isChecked) {
+                final todoToMove = widget.todoModel; // 現在のTODOを保存
+
+                // 完了リストに追加してから削除することで一瞬で消えるのを防止
+                await ref
+                    .read(completedListProvider.notifier)
+                    .createCompletedTodo(todoToMove);
+
+                // 削除処理は完了リストへの追加が終わった後
+                await ref
+                    .read(todoListProvider.notifier)
+                    .deleteTodo(todoToMove.id);
               } else {
                 // todoをTodoListに戻す
               }
