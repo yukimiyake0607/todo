@@ -82,17 +82,28 @@ class _TodoCardState extends ConsumerState<TodoCard> {
               if (_isChecked) {
                 final todoToMove = widget.todoModel; // 現在のTODOを保存
 
-                // 完了リストに追加してから削除することで一瞬で消えるのを防止
                 await ref
                     .read(completedListProvider.notifier)
                     .createCompletedTodo(todoToMove);
 
-                // 削除処理は完了リストへの追加が終わった後
                 await ref
                     .read(todoListProvider.notifier)
                     .deleteTodo(todoToMove.id);
-              } else {
-                // todoをTodoListに戻す
+              }
+
+              if (!_isChecked) {
+                final todoToMove = widget.todoModel;
+
+                await ref.read(todoListProvider.notifier).createTodo(
+                      todoToMove.todoTitle,
+                      todoToMove.dueDate,
+                      todoToMove.createdDate,
+                      todoToMove.important ?? false,
+                    );
+
+                await ref
+                    .read(completedListProvider.notifier)
+                    .deleteCompletedTodo(todoToMove.id);
               }
             },
           ),
