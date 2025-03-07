@@ -20,6 +20,7 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
   late TextEditingController _controllerDate;
   late DateTime _dueDate;
   bool? _isCheck = false;
+  bool _todoTitleisEmpty = true;
 
   @override
   void initState() {
@@ -100,9 +101,33 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('タスク名'),
+                    Row(
+                      children: [
+                        const Text('タスク名'),
+                        const SizedBox(width: 10),
+                        if (_todoTitleisEmpty)
+                          const Text(
+                            '※必須',
+                            style: TextStyle(
+                              color: todoMainColor,
+                            ),
+                          ),
+                      ],
+                    ),
                     TextField(
                       controller: _controllerTodoTitle,
+                      onChanged: (value) {
+                        if (value.isEmpty) {
+                          setState(() {
+                            _todoTitleisEmpty = true;
+                          });
+                        }
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            _todoTitleisEmpty = false;
+                          });
+                        }
+                      },
                     ),
                     const SizedBox(height: 10),
                     InkWell(
@@ -135,6 +160,15 @@ class _TodoDialogState extends ConsumerState<TodoDialog> {
                       child: TextButton(
                         onPressed: () {
                           if (widget.todoModel == null) {
+                            if (_todoTitleisEmpty == true) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('タスク名を入力してください'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              return; // 処理を中断
+                            }
                             ref.read(todoListProvider.notifier).createTodo(
                                   _controllerTodoTitle.text,
                                   _dueDate,
