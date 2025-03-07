@@ -22,13 +22,16 @@ class _TodoPageState extends ConsumerState<TodoPage> {
         subTitle: 'タスクが3件残っています',
       ),
       body: todoListAsync.when(
-        data: (todoListData) {
+        data: (todoList) {
           return ListView.builder(
             padding: const EdgeInsets.fromLTRB(20, 30, 20, 0),
-            itemCount: todoListData.length,
+            itemCount: todoList.length,
             itemBuilder: (context, index) {
-              final todoList = todoListData[index];
-              return TodoCard(todoModel: todoList);
+              final todo = todoList[index];
+              return TodoCard(
+                todoModel: todo,
+                key: ValueKey(todo.id),
+              );
             },
           );
         },

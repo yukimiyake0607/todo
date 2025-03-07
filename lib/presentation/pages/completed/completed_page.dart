@@ -19,7 +19,10 @@ class CompletedPage extends ConsumerWidget {
             itemCount: completedList.length,
             itemBuilder: (context, index) {
               final completedTodo = completedList[index];
-              return TodoCard(todoModel: completedTodo);
+              return TodoCard(
+                todoModel: completedTodo,
+                key: ValueKey(completedTodo.id),
+              );
             },
           );
         },
