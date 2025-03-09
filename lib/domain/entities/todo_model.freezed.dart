@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+TodoModel _$TodoModelFromJson(Map<String, dynamic> json) {
+  return _TodoModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$TodoModel {
   String get id => throw _privateConstructorUsedError;
@@ -23,6 +27,7 @@ mixin _$TodoModel {
   bool? get important => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $TodoModelCopyWith<TodoModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -156,7 +161,7 @@ class __$$TodoModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$TodoModelImpl implements _TodoModel {
   const _$TodoModelImpl(
       {required this.id,
@@ -165,6 +170,9 @@ class _$TodoModelImpl implements _TodoModel {
       required this.createdDate,
       required this.important,
       required this.isCompleted});
+
+  factory _$TodoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TodoModelImplFromJson(json);
 
   @override
   final String id;
@@ -201,6 +209,7 @@ class _$TodoModelImpl implements _TodoModel {
                 other.isCompleted == isCompleted));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, todoTitle, dueDate, createdDate, important, isCompleted);
@@ -210,6 +219,13 @@ class _$TodoModelImpl implements _TodoModel {
   @pragma('vm:prefer-inline')
   _$$TodoModelImplCopyWith<_$TodoModelImpl> get copyWith =>
       __$$TodoModelImplCopyWithImpl<_$TodoModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TodoModelImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _TodoModel implements TodoModel {
@@ -220,6 +236,9 @@ abstract class _TodoModel implements TodoModel {
       required final DateTime createdDate,
       required final bool? important,
       required final bool isCompleted}) = _$TodoModelImpl;
+
+  factory _TodoModel.fromJson(Map<String, dynamic> json) =
+      _$TodoModelImpl.fromJson;
 
   @override
   String get id;
