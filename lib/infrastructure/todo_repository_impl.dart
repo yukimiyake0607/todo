@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todo/domain/entities/todo_model.dart';
-import 'package:todo/domain/repositories/todo_repository.dart';
+import 'package:todo/domain/repositories/todo_repository_interface.dart';
 
 class FirebaseTodoRepository implements ITodoRepository {
   final FirebaseFirestore _firestore;
