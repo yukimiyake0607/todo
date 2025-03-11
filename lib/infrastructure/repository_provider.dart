@@ -1,11 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:todo/domain/repositories/todo_repository_interface.dart';
-import 'package:todo/infrastructure/todo_repository_impl.dart';
+import 'package:todo/domain/repositories/implements/auth_repository_impl.dart';
+import 'package:todo/domain/repositories/interfaces/auth_repository_interface.dart';
+import 'package:todo/domain/repositories/interfaces/todo_repository_interface.dart';
+import 'package:todo/domain/repositories/implements/todo_repository_impl.dart';
+import 'package:todo/infrastructure/auth_provider.dart';
 
-part 'repository_provider.g.dart';
+// 認証リポジトリプロバイダー
+final authRepositoryProvider = Provider<IAuthRepository>((ref) {
+  return FirebaseAuthRepository();
+});
 
-@riverpod
-ITodoRepository todoRepository (WidgetRef ref) {
-  return FirebaseTodoRepository();
-}
+// Todoリポジトリプロバイダ
+final todoRepositoryProvider = Provider<ITodoRepository>((ref) {
+  final userId = ref.watch(currentUserIdProvider);
+  return FirebaseTodoRepository(userId: userId);
+});
