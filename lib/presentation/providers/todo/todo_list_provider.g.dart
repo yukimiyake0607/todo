@@ -6,7 +6,7 @@ part of 'todo_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$todoListHash() => r'758c60c9ed4c5b5e3814e0a7b2da4850fce8f80d';
+String _$todoListHash() => r'cd044c0f3c858b7306d8b5bcb9b0091edf46447e';
 
 /// See also [TodoList].
 @ProviderFor(TodoList)
