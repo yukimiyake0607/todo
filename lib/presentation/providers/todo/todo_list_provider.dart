@@ -1,13 +1,35 @@
+import 'dart:async';
+
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/domain/entities/todo_model.dart';
+import 'package:todo/infrastructure/repository_provider.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo_list_provider.g.dart';
 
 @riverpod
 class TodoList extends _$TodoList {
+  late StreamSubscription<List<TodoModel>> _subscription;
+
   @override
   FutureOr<List<TodoModel>> build() {
+    final repository = ref.watch(todoRepositoryProvider);
+
+    // Firestoreから未完了のTodoを取得するStreamを監視
+    _subscription = repository.getInCompletedTodo().listen(
+      // データ受信時
+      (todos) {
+        state = AsyncValue.data(todos);
+      },
+      onError: (error, _) {
+        state = AsyncValue.error(error, _);
+      },
+    );
+
+    ref.onDispose(() {
+      _subscription.cancel();
+    });
+
     return [];
   }
 
@@ -19,25 +41,34 @@ class TodoList extends _$TodoList {
   ) async {
     state = const AsyncValue.loading();
 
-    // 新規TODOを作成
-    final newTodo = TodoModel(
-      id: const Uuid().v4(),
-      todoTitle: todoTitle,
-      dueDate: dueDate,
-      createdDate: createdDate,
-      important: important,
-      isCompleted: false,
-    );
+    try {
+      // 新規TODOを作成
+      final newTodo = TodoModel(
+        id: const Uuid().v4(),
+        todoTitle: todoTitle,
+        dueDate: dueDate,
+        createdDate: createdDate,
+        important: important,
+        isCompleted: false,
+      );
 
-    final currentTodos = state.valueOrNull ?? [];
-    state = AsyncValue.data([...currentTodos, newTodo]);
+      // FirestoreにTodoを追加
+      final repository = ref.read(todoRepositoryProvider);
+      await repository.addTodo(newTodo);
+
+      // Streamから自動的に更新されるので、state更新は不要
+    } on Exception catch (e, _) {
+      state = AsyncValue.error(e, _);
+    }
   }
 
   Future<void> deleteTodo(String id) async {
-    final currentTodos = state.valueOrNull ?? [];
-    final updateTodos = currentTodos.where((todo) => todo.id != id).toList();
-
-    state = AsyncValue.data(updateTodos);
+    try {
+      final repository = ref.read(todoRepositoryProvider);
+      await repository.deleteTodo(id);
+    } on Exception catch (e, _) {
+      state = AsyncValue.error(e, _);
+    }
   }
 
   Future<void> updateTodo(
@@ -46,17 +77,22 @@ class TodoList extends _$TodoList {
     bool important,
     String todoId,
   ) async {
-    final currentTodos = state.value ?? [];
-    final findTodo = currentTodos.firstWhere((todo) => todo.id == todoId);
-    final editTodo = findTodo.copyWith(
-      todoTitle: todoTitle,
-      dueDate: dueDate,
-      important: important,
-    );
+    try {
+      final repository = ref.read(todoRepositoryProvider);
+      final currentTodos = state.value ?? [];
+      final findTodo = currentTodos.firstWhere((todo) => todo.id == todoId);
 
-    final updateTodos =
-        currentTodos.where((todo) => todo.id != editTodo.id).toList();
+      final editTodo = findTodo.copyWith(
+        todoTitle: todoTitle,
+        dueDate: dueDate,
+        important: important,
+      );
 
-    state = AsyncValue.data([...updateTodos, editTodo]);
+      await repository.updateTodo(editTodo);
+
+      // Streamから自動で更新されるため、ここでstate更新は不要
+    } on Exception catch (e, _) {
+      state = AsyncValue.error(e, _);
+    }
   }
 }
