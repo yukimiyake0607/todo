@@ -11,7 +11,7 @@ final authRepositoryProvider = Provider<IAuthRepository>((ref) {
   return FirebaseAuthRepository();
 });
 
-// Todoリポジトリプロバイダ
+// Todoリポジトリプロバイダー
 final todoRepositoryProvider = Provider<ITodoRepository>((ref) {
   final userId = ref.watch(currentUserIdProvider);
   return FirebaseTodoRepository(userId: userId);

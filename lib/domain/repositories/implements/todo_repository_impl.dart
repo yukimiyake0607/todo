@@ -22,6 +22,7 @@ class FirebaseTodoRepository implements ITodoRepository {
     return _firestore.collection('users/$_userId/$_collection');
   }
 
+  // map処理がFirestoreのデータ変更のたびに実行される
   @override
   Stream<List<TodoModel>> getAllTodos() {
     if (_userId == null) {
