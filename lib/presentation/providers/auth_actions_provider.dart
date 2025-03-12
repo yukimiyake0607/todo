@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/infrastructure/auth_provider.dart';
-import 'package:todo/infrastructure/repository_provider.dart';
 import 'package:todo/presentation/core/messages/auth_error_message.dart';
 import 'package:todo/presentation/providers/todo_provider.dart';
 
