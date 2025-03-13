@@ -11,7 +11,7 @@ final authActionsProvider = Provider<AuthActions>((ref) {
   return AuthActions(ref);
 });
 
-// ユースケースの役割
+// 認証に関する操作を提供：ユースケース
 class AuthActions {
   final Ref _ref;
 
