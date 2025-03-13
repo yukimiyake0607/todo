@@ -1,8 +1,14 @@
-// todo_repositoryのインターフェースをimplementして実装を作成
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/domain/entities/todo_model.dart';
 import 'package:todo/domain/repositories/interfaces/todo_repository_interface.dart';
+import 'package:todo/presentation/providers/auth/auth_provider.dart';
+
+// Todoリポジトリプロバイダー
+final todoRepositoryProvider = Provider<ITodoRepository>((ref) {
+  final userId = ref.watch(currentUserIdProvider);
+  return FirebaseTodoRepository(userId: userId);
+});
 
 class FirebaseTodoRepository implements ITodoRepository {
   final FirebaseFirestore _firestore;

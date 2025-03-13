@@ -8,7 +8,7 @@ final authRepositoryProvider = Provider<IAuthRepository>((ref) {
   return FirebaseAuthRepository();
 });
 
-// Authenticationのリポジトリパターン
+// Authenticationへのアクセスをカプセル化
 class FirebaseAuthRepository implements IAuthRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
