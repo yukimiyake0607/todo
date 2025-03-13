@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:todo/domain/entities/todo_model.dart';
-import 'package:todo/infrastructure/repository_provider.dart';
+import 'package:todo/infrastructure/todo/repository_provider.dart';
 import 'package:uuid/uuid.dart';
 
 // 未完了Todoを監視するストリームプロバイダー

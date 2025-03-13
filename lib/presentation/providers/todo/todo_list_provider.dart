@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/domain/entities/todo_model.dart';
-import 'package:todo/infrastructure/repository_provider.dart';
+import 'package:todo/infrastructure/todo/repository_provider.dart';
 import 'package:uuid/uuid.dart';
 
 part 'todo_list_provider.g.dart';
