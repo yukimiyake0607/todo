@@ -1,7 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/domain/repositories/interfaces/auth_repository_interface.dart';
 
+// 認証リポジトリプロバイダー
+final authRepositoryProvider = Provider<IAuthRepository>((ref) {
+  return FirebaseAuthRepository();
+});
+
+// Authenticationのリポジトリパターン
 class FirebaseAuthRepository implements IAuthRepository {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;

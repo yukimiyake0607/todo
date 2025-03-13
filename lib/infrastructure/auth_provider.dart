@@ -1,12 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo/domain/repositories/interfaces/auth_repository_interface.dart';
 import 'package:todo/domain/repositories/implements/auth_repository_impl.dart';
-
-// 認証リポジトリプロバイダー
-final authRepositoryProvider = Provider<IAuthRepository>((ref) {
-  return FirebaseAuthRepository();
-});
 
 // 現在の認証状態を確認するストリームプロバイダー
 final authStateProvider = StreamProvider<User?>((ref) {
