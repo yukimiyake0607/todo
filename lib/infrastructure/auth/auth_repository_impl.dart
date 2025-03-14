@@ -1,16 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:todo/domain/repositories/interfaces/auth_repository_interface.dart';
 
+// 認証リポジトリプロバイダー
+final authRepositoryProvider = Provider<IAuthRepository>((ref) {
+  return FirebaseAuthRepository();
+});
+
+// Authenticationへのアクセスをカプセル化
 class FirebaseAuthRepository implements IAuthRepository {
   final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
 
-  FirebaseAuthRepository({
-    FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn();
+  FirebaseAuthRepository({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   @override
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
@@ -41,33 +43,7 @@ class FirebaseAuthRepository implements IAuthRepository {
 
   @override
   Future<void> signOut() async {
-    await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
-  }
-
-  @override
-  Future<UserCredential> signInWithGoogle() async {
-    // Google認証フローを開始
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-
-    // 認証状態を取得
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    if (googleAuth == null) {
-      throw FirebaseAuthException(
-        code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
-        message: 'Google認証情報が見つかりません',
-      );
-    }
-
-    // Firebase認証情報を作成
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    return await _firebaseAuth.signInWithCredential(credential);
   }
 
   @override

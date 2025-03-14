@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo/infrastructure/auth_provider.dart';
-import 'package:todo/infrastructure/repository_provider.dart';
+import 'package:todo/infrastructure/auth/auth_repository_impl.dart';
+import 'package:todo/presentation/providers/auth/auth_provider.dart';
 import 'package:todo/presentation/core/messages/auth_error_message.dart';
 import 'package:todo/presentation/providers/todo_provider.dart';
 
@@ -11,7 +11,7 @@ final authActionsProvider = Provider<AuthActions>((ref) {
   return AuthActions(ref);
 });
 
-// ユースケースの役割
+// 認証に関する操作を提供：ユースケース
 class AuthActions {
   final Ref _ref;
 
@@ -60,31 +60,6 @@ class AuthActions {
       _ref.read(todoActionStateProvider.notifier).state =
           const AsyncValue.data(null);
       onSuccess;
-    } on FirebaseAuthException catch (e, _) {
-      _ref.read(todoActionStateProvider.notifier).state =
-          AsyncValue.error(e, _);
-      onError(getErrorMessage(e));
-    } on Exception catch (e, _) {
-      _ref.read(todoActionStateProvider.notifier).state =
-          AsyncValue.error(e, _);
-      onError('エラーが発生しました');
-    }
-  }
-
-  // Googleでサインイン
-  Future<void> signInWithGoogle(
-    VoidCallback onSuccess,
-    Function(String) onError,
-  ) async {
-    _ref.read(todoActionStateProvider.notifier).state =
-        const AsyncValue.loading();
-
-    try {
-      final authRepository = _ref.read(authRepositoryProvider);
-      await authRepository.signInWithGoogle();
-      _ref.read(todoActionStateProvider.notifier).state =
-          const AsyncValue.data(null);
-      onSuccess();
     } on FirebaseAuthException catch (e, _) {
       _ref.read(todoActionStateProvider.notifier).state =
           AsyncValue.error(e, _);
