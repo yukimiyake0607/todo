@@ -41,38 +41,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBSPBlNqjTdtevLr4IC5_A5INRZ_p7nfEY',
-    appId: '1:230645514865:web:7091f67771bf39e8c711d0',
-    messagingSenderId: '230645514865',
-    projectId: 'todo-app-e37ca',
-    authDomain: 'todo-app-e37ca.firebaseapp.com',
-    storageBucket: 'todo-app-e37ca.firebasestorage.app',
-    measurementId: 'G-F839WTNC9C',
+    apiKey: 'AIzaSyB1fzbHDkdlv5SRGMYD1D4FFbGpVWEFAho',
+    appId: '1:576901470679:web:44f74e1e0cde67db349392',
+    messagingSenderId: '576901470679',
+    projectId: 'todo-app-4c93c',
+    authDomain: 'todo-app-4c93c.firebaseapp.com',
+    storageBucket: 'todo-app-4c93c.firebasestorage.app',
+    measurementId: 'G-5HV34L6MDX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZy-j3dxr2HWuxTo16QU2BfNofKZ_wtOQ',
-    appId: '1:230645514865:android:8d51076560f0fbfec711d0',
-    messagingSenderId: '230645514865',
-    projectId: 'todo-app-e37ca',
-    storageBucket: 'todo-app-e37ca.firebasestorage.app',
+    apiKey: 'AIzaSyA3Aqi2mgKbO-pmGiYTFRCVKv_4zD4fa00',
+    appId: '1:576901470679:android:af0d74e32ad84b04349392',
+    messagingSenderId: '576901470679',
+    projectId: 'todo-app-4c93c',
+    storageBucket: 'todo-app-4c93c.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAcuPVHAkxpd9MLVmLDN7pFV0pHozkoz3s',
-    appId: '1:230645514865:ios:fd23d8fd2dedccfcc711d0',
-    messagingSenderId: '230645514865',
-    projectId: 'todo-app-e37ca',
-    storageBucket: 'todo-app-e37ca.firebasestorage.app',
+    apiKey: 'AIzaSyBcD1XDrI_zf8sU3QW3AOlCWBe8ueJptgY',
+    appId: '1:576901470679:ios:b164efd0a1ea02eb349392',
+    messagingSenderId: '576901470679',
+    projectId: 'todo-app-4c93c',
+    storageBucket: 'todo-app-4c93c.firebasestorage.app',
     iosBundleId: 'com.example.todo',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAcuPVHAkxpd9MLVmLDN7pFV0pHozkoz3s',
-    appId: '1:230645514865:ios:fd23d8fd2dedccfcc711d0',
-    messagingSenderId: '230645514865',
-    projectId: 'todo-app-e37ca',
-    storageBucket: 'todo-app-e37ca.firebasestorage.app',
+    apiKey: 'AIzaSyBcD1XDrI_zf8sU3QW3AOlCWBe8ueJptgY',
+    appId: '1:576901470679:ios:b164efd0a1ea02eb349392',
+    messagingSenderId: '576901470679',
+    projectId: 'todo-app-4c93c',
+    storageBucket: 'todo-app-4c93c.firebasestorage.app',
     iosBundleId: 'com.example.todo',
   );
 

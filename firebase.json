@@ -1,1 +1,44 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"todo-app-e37ca","appId":"1:230645514865:android:8d51076560f0fbfec711d0","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"todo-app-e37ca","appId":"1:230645514865:ios:fd23d8fd2dedccfcc711d0","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"macos":{"default":{"projectId":"todo-app-e37ca","appId":"1:230645514865:ios:fd23d8fd2dedccfcc711d0","uploadDebugSymbols":false,"fileOutput":"macos/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"todo-app-e37ca","configurations":{"android":"1:230645514865:android:8d51076560f0fbfec711d0","ios":"1:230645514865:ios:fd23d8fd2dedccfcc711d0","macos":"1:230645514865:ios:fd23d8fd2dedccfcc711d0","web":"1:230645514865:web:7091f67771bf39e8c711d0","windows":"1:230645514865:web:428506e2d2330031c711d0"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "todo-app-4c93c",
+          "appId": "1:576901470679:android:af0d74e32ad84b04349392",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "todo-app-4c93c",
+          "appId": "1:576901470679:ios:b164efd0a1ea02eb349392",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "macos": {
+        "default": {
+          "projectId": "todo-app-4c93c",
+          "appId": "1:576901470679:ios:b164efd0a1ea02eb349392",
+          "uploadDebugSymbols": false,
+          "fileOutput": "macos/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "todo-app-4c93c",
+          "configurations": {
+            "android": "1:576901470679:android:af0d74e32ad84b04349392",
+            "ios": "1:576901470679:ios:b164efd0a1ea02eb349392",
+            "macos": "1:576901470679:ios:b164efd0a1ea02eb349392",
+            "web": "1:576901470679:web:44f74e1e0cde67db349392"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
+}

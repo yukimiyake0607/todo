@@ -21,9 +21,6 @@ abstract class IAuthRepository {
   // サインアウト
   Future<void> signOut();
 
-  // Googleアカウントでサインイン
-  Future<UserCredential> signInWithGoogle();
-
   // パスワードリセットメールの送信
   Future<void> sendPasswordResetEmail(String email);
 }

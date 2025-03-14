@@ -71,31 +71,6 @@ class AuthActions {
     }
   }
 
-  // Googleでサインイン
-  Future<void> signInWithGoogle(
-    VoidCallback onSuccess,
-    Function(String) onError,
-  ) async {
-    _ref.read(todoActionStateProvider.notifier).state =
-        const AsyncValue.loading();
-
-    try {
-      final authRepository = _ref.read(authRepositoryProvider);
-      await authRepository.signInWithGoogle();
-      _ref.read(todoActionStateProvider.notifier).state =
-          const AsyncValue.data(null);
-      onSuccess();
-    } on FirebaseAuthException catch (e, _) {
-      _ref.read(todoActionStateProvider.notifier).state =
-          AsyncValue.error(e, _);
-      onError(getErrorMessage(e));
-    } on Exception catch (e, _) {
-      _ref.read(todoActionStateProvider.notifier).state =
-          AsyncValue.error(e, _);
-      onError('エラーが発生しました');
-    }
-  }
-
   // サインアウト
   Future<void> signOut() async {
     _ref.read(todoActionStateProvider.notifier).state =
